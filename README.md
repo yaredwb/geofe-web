@@ -140,3 +140,7 @@ takes about 2 s and the 0.8 m mesh, 3191 elements, about 4 s).
 - Loads close to the collapse load make the load stepping stall: the bundled footing uses 80 kPa because the
   factory example's 150 kPa is above the limit load on fine meshes (limit load factor 0.7 - 0.77 for h <= 0.5 m).
 - Touch pinch-zoom is not implemented.
+
+## License
+
+MIT — see [LICENSE](LICENSE).
