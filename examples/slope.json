@@ -1,0 +1,94 @@
+{
+  "version": 1,
+  "title": "Example: homogeneous slope (SRM FOS)",
+  "units": {
+    "length": "m",
+    "force": "kN",
+    "stress": "kPa"
+  },
+  "settings": {
+    "analysis": "fos",
+    "planeStrain": true,
+    "gravity": 9.81,
+    "elementType": "T6",
+    "meshSize": 1.5,
+    "tolerance": 0.001,
+    "maxIterations": 200,
+    "loadSteps": 10,
+    "fos": {
+      "min": 0.5,
+      "max": 5,
+      "tol": 0.005,
+      "maxBisections": 30,
+      "tensionCutoff": true
+    }
+  },
+  "regions": [
+    {
+      "id": "R1",
+      "name": "Slope",
+      "materialId": "M1",
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          60,
+          0
+        ],
+        [
+          60,
+          20
+        ],
+        [
+          40,
+          20
+        ],
+        [
+          20,
+          10
+        ],
+        [
+          0,
+          10
+        ]
+      ]
+    }
+  ],
+  "lines": [],
+  "materials": [
+    {
+      "id": "M1",
+      "name": "Slope soil",
+      "color": "#c8a26b",
+      "model": "mohr-coulomb",
+      "E": 100000,
+      "nu": 0.3,
+      "gammaUnsat": 20,
+      "gammaSat": 20,
+      "c": 10,
+      "phi": 20,
+      "psi": 0,
+      "tensile": 0,
+      "K0": null,
+      "drainage": "drained"
+    }
+  ],
+  "boundaries": [
+    {
+      "id": "B1",
+      "type": "fixity",
+      "target": {
+        "kind": "auto"
+      }
+    }
+  ],
+  "loads": [],
+  "water": {
+    "enabled": false,
+    "gammaW": 9.81,
+    "phreatic": []
+  },
+  "stages": []
+}

@@ -1,0 +1,151 @@
+{
+  "version": 1,
+  "title": "Example: strip footing on layered soil (80 kPa)",
+  "units": {
+    "length": "m",
+    "force": "kN",
+    "stress": "kPa"
+  },
+  "settings": {
+    "analysis": "static",
+    "planeStrain": true,
+    "gravity": 9.81,
+    "elementType": "T6",
+    "meshSize": 1,
+    "tolerance": 0.001,
+    "maxIterations": 200,
+    "loadSteps": 20,
+    "fos": {
+      "min": 0.5,
+      "max": 5,
+      "tol": 0.005,
+      "maxBisections": 30,
+      "tensionCutoff": true
+    }
+  },
+  "regions": [
+    {
+      "id": "R1",
+      "name": "Sand",
+      "materialId": "M1",
+      "points": [
+        [
+          0,
+          6
+        ],
+        [
+          20,
+          6
+        ],
+        [
+          20,
+          10
+        ],
+        [
+          0,
+          10
+        ]
+      ]
+    },
+    {
+      "id": "R2",
+      "name": "Clay",
+      "materialId": "M2",
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          20,
+          0
+        ],
+        [
+          20,
+          6
+        ],
+        [
+          0,
+          6
+        ]
+      ]
+    }
+  ],
+  "lines": [],
+  "materials": [
+    {
+      "id": "M1",
+      "name": "Sand",
+      "color": "#d6c36b",
+      "model": "mohr-coulomb",
+      "E": 30000,
+      "nu": 0.3,
+      "gammaUnsat": 18,
+      "gammaSat": 20,
+      "c": 1,
+      "phi": 32,
+      "psi": 2,
+      "tensile": 0,
+      "K0": null,
+      "drainage": "drained"
+    },
+    {
+      "id": "M2",
+      "name": "Clay",
+      "color": "#7aa6c2",
+      "model": "mohr-coulomb",
+      "E": 15000,
+      "nu": 0.35,
+      "gammaUnsat": 17,
+      "gammaSat": 19,
+      "c": 15,
+      "phi": 22,
+      "psi": 0,
+      "tensile": 0,
+      "K0": null,
+      "drainage": "drained"
+    }
+  ],
+  "boundaries": [
+    {
+      "id": "B1",
+      "type": "fixity",
+      "target": {
+        "kind": "auto"
+      }
+    }
+  ],
+  "loads": [
+    {
+      "id": "Q1",
+      "type": "distributed",
+      "p1": [
+        9,
+        10
+      ],
+      "p2": [
+        11,
+        10
+      ],
+      "qx1": 0,
+      "qy1": -80,
+      "qx2": 0,
+      "qy2": -80
+    }
+  ],
+  "water": {
+    "enabled": true,
+    "gammaW": 9.81,
+    "phreatic": [
+      [
+        0,
+        7
+      ],
+      [
+        20,
+        7
+      ]
+    ]
+  },
+  "stages": []
+}

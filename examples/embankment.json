@@ -1,0 +1,164 @@
+{
+  "version": 1,
+  "title": "Example: embankment on soft clay with water table",
+  "units": {
+    "length": "m",
+    "force": "kN",
+    "stress": "kPa"
+  },
+  "settings": {
+    "analysis": "static",
+    "planeStrain": true,
+    "gravity": 9.81,
+    "elementType": "T6",
+    "meshSize": 2,
+    "tolerance": 0.001,
+    "maxIterations": 200,
+    "loadSteps": 15,
+    "fos": {
+      "min": 0.5,
+      "max": 5,
+      "tol": 0.005,
+      "maxBisections": 30,
+      "tensionCutoff": true
+    }
+  },
+  "regions": [
+    {
+      "id": "R1",
+      "name": "Soft clay",
+      "materialId": "M1",
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          60,
+          0
+        ],
+        [
+          60,
+          8
+        ],
+        [
+          45,
+          8
+        ],
+        [
+          15,
+          8
+        ],
+        [
+          0,
+          8
+        ]
+      ]
+    },
+    {
+      "id": "R2",
+      "name": "Embankment",
+      "materialId": "M2",
+      "points": [
+        [
+          15,
+          8
+        ],
+        [
+          45,
+          8
+        ],
+        [
+          39,
+          12
+        ],
+        [
+          21,
+          12
+        ]
+      ]
+    }
+  ],
+  "lines": [],
+  "materials": [
+    {
+      "id": "M1",
+      "name": "Soft clay",
+      "color": "#7aa6c2",
+      "model": "mohr-coulomb",
+      "E": 4000,
+      "nu": 0.35,
+      "gammaUnsat": 16,
+      "gammaSat": 17,
+      "c": 6,
+      "phi": 22,
+      "psi": 0,
+      "tensile": 0,
+      "K0": null,
+      "drainage": "drained"
+    },
+    {
+      "id": "M2",
+      "name": "Embankment fill",
+      "color": "#d6c36b",
+      "model": "mohr-coulomb",
+      "E": 40000,
+      "nu": 0.3,
+      "gammaUnsat": 20,
+      "gammaSat": 21,
+      "c": 5,
+      "phi": 35,
+      "psi": 5,
+      "tensile": 0,
+      "K0": null,
+      "drainage": "drained"
+    }
+  ],
+  "boundaries": [
+    {
+      "id": "B1",
+      "type": "fixity",
+      "target": {
+        "kind": "auto"
+      }
+    }
+  ],
+  "loads": [],
+  "water": {
+    "enabled": true,
+    "gammaW": 9.81,
+    "phreatic": [
+      [
+        0,
+        7
+      ],
+      [
+        60,
+        7
+      ]
+    ]
+  },
+  "stages": [
+    {
+      "id": "S0",
+      "name": "Initial ground",
+      "initial": "gravity",
+      "activeRegions": [
+        "R1"
+      ],
+      "activeLoads": [],
+      "resetDisplacements": true
+    },
+    {
+      "id": "S1",
+      "name": "Build embankment",
+      "initial": "gravity",
+      "activeRegions": [
+        "R1",
+        "R2"
+      ],
+      "activeLoads": [],
+      "resetDisplacements": true
+    }
+  ]
+}

@@ -1,0 +1,166 @@
+{
+  "version": 1,
+  "title": "Example: staged excavation, 4 m deep (K0 then excavate)",
+  "units": {
+    "length": "m",
+    "force": "kN",
+    "stress": "kPa"
+  },
+  "settings": {
+    "analysis": "static",
+    "planeStrain": true,
+    "gravity": 9.81,
+    "elementType": "T6",
+    "meshSize": 1.5,
+    "tolerance": 0.001,
+    "maxIterations": 200,
+    "loadSteps": 10,
+    "fos": {
+      "min": 0.5,
+      "max": 5,
+      "tol": 0.005,
+      "maxBisections": 30,
+      "tensionCutoff": true
+    }
+  },
+  "regions": [
+    {
+      "id": "R1",
+      "name": "Clay",
+      "materialId": "M1",
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          40,
+          0
+        ],
+        [
+          40,
+          15
+        ],
+        [
+          26,
+          15
+        ],
+        [
+          26,
+          11
+        ],
+        [
+          14,
+          11
+        ],
+        [
+          14,
+          15
+        ],
+        [
+          0,
+          15
+        ]
+      ]
+    },
+    {
+      "id": "R2",
+      "name": "Excavation",
+      "materialId": "M1",
+      "points": [
+        [
+          14,
+          11
+        ],
+        [
+          26,
+          11
+        ],
+        [
+          26,
+          15
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    }
+  ],
+  "lines": [],
+  "materials": [
+    {
+      "id": "M1",
+      "name": "Stiff clay",
+      "color": "#c8a26b",
+      "model": "mohr-coulomb",
+      "E": 20000,
+      "nu": 0.3,
+      "gammaUnsat": 19,
+      "gammaSat": 20,
+      "c": 25,
+      "phi": 25,
+      "psi": 0,
+      "tensile": 0,
+      "K0": null,
+      "drainage": "drained"
+    }
+  ],
+  "boundaries": [
+    {
+      "id": "B1",
+      "type": "fixity",
+      "target": {
+        "kind": "auto"
+      }
+    }
+  ],
+  "loads": [
+    {
+      "id": "Q1",
+      "type": "distributed",
+      "p1": [
+        4,
+        15
+      ],
+      "p2": [
+        10,
+        15
+      ],
+      "qx1": 0,
+      "qy1": -20,
+      "qx2": 0,
+      "qy2": -20
+    }
+  ],
+  "water": {
+    "enabled": false,
+    "gammaW": 9.81,
+    "phreatic": []
+  },
+  "stages": [
+    {
+      "id": "S0",
+      "name": "Initial (K0)",
+      "initial": "k0",
+      "activeRegions": [
+        "R1",
+        "R2"
+      ],
+      "activeLoads": [],
+      "resetDisplacements": true
+    },
+    {
+      "id": "S1",
+      "name": "Excavate and surcharge",
+      "initial": "gravity",
+      "activeRegions": [
+        "R1"
+      ],
+      "activeLoads": [
+        "Q1"
+      ],
+      "resetDisplacements": false
+    }
+  ]
+}
